@@ -1,7 +1,7 @@
 from sympy import integrate, Piecewise, oo, simplify
 from sympy.abc import t
 
-def ÁreaBajoCurva(función, variable):
+def ProbTotal(función, variable):
     return integrate(función, (variable,-oo,oo))
 
 def Prob(función, variable, a, b):
