@@ -1,6 +1,8 @@
 from sympy import integrate, Piecewise, oo
 from sympy import simplify, piecewise_fold, Symbol
-from sympy.abc import x, y, z
+
+x = Symbol("x", real=True)
+y = Symbol("y", real=True)
 
 def __AgregarIntervalo(función, intervalo):
     trozoImport = función.args[0]
