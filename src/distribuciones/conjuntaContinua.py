@@ -5,11 +5,8 @@ x = Symbol("x", real=True)
 y = Symbol("y", real=True)
 
 def __AgregarIntervalo(función, intervalo):
-    trozoImport = función.args[0]
-    lista = [] 
-    lista += [(trozoImport[0], trozoImport[1] & intervalo)]
-    lista += [(0, True)]
-    return Piecewise(*lista)
+    funcionTrozos = Piecewise((función, intervalo),(0, True))
+    return piecewise_fold(funcionTrozos)
 
 def ProbTotal(función):
     variables = función.atoms(Symbol)
@@ -17,7 +14,7 @@ def ProbTotal(función):
     return integrate(función, *lista)
 
 def Prob(función, intervalo):
-    nuevaFunc = __AgregarIntervalo(simplify(función), intervalo)
+    nuevaFunc = __AgregarIntervalo(función, intervalo)
     return ProbTotal(nuevaFunc)
 
 def ProbMarginal(función, variable):
