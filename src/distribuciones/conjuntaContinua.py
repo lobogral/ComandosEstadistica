@@ -28,7 +28,9 @@ def ProbMarginal(variable):
     integral = integrate(fdp, (variable,-oo,oo))
     return simplify(piecewise_fold(integral.rewrite(Piecewise)))
 
-def ProbCondicional(intervaloDep, varIndep, valIndep):
+def ProbCondicional(intervaloDep, eqDep):
+    varIndep = eqDep.args[0]
+    valIndep = eqDep.args[1]
     varDep = y if varIndep == x else x
     funcCond = fdp/ProbMarginal(varIndep)
     funcCondEval = simplify(funcCond.subs(varIndep, valIndep))
