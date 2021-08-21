@@ -1,4 +1,4 @@
-from sympy import integrate, Piecewise, oo
+from sympy import integrate, Piecewise, oo, solve, And
 from sympy import simplify, piecewise_fold, Symbol
 
 x = Symbol("x", real=True)
@@ -19,20 +19,24 @@ def ProbTotal(fdpPrueba):
     lista = [(variable, -oo, oo) for variable in variables]
     return integrate(fdpPrueba, *lista)
 
-def Prob(intervalo):
-    nuevaFunc = __AgregarIntervalo(fdp, intervalo)
+def Prob(area):
+    nuevaFunc = __AgregarIntervalo(fdp, area)
     return ProbTotal(nuevaFunc)
 
-def ProbMarginal(variable):
-    variable = y if variable == x else x
-    integral = integrate(fdp, (variable,-oo,oo))
+def ProbMarginal(*variablesMar):
+    variablesFdp = fdp.atoms(Symbol)
+    lista = [
+        (variable, -oo, oo) 
+        for variable in variablesFdp - {*variablesMar}
+    ]
+    integral = integrate(fdp, *lista) if lista else fdp
     return simplify(piecewise_fold(integral.rewrite(Piecewise)))
 
-def ProbCondicional(intervaloDep, eqDep):
-    varIndep = eqDep.args[0]
-    valIndep = eqDep.args[1]
-    varDep = y if varIndep == x else x
-    funcCond = fdp/ProbMarginal(varIndep)
-    funcCondEval = simplify(funcCond.subs(varIndep, valIndep))
+def ProbCondicional(intervaloDep, *eqsIndep):
+    varsIndep = And(*eqsIndep).atoms(Symbol)
+    varsDep = fdp.atoms(Symbol) - varsIndep
+    valsIndep = solve([*eqsIndep], dict=True)
+    funcCond = fdp/ProbMarginal(*varsIndep)
+    funcCondEval = simplify(funcCond.subs(*valsIndep))
     funcCondEvalInt = __AgregarIntervalo(funcCondEval, intervaloDep)
-    return integrate(funcCondEvalInt, (varDep, -oo, oo))
+    return integrate(funcCondEvalInt, (varsDep, -oo, oo))
