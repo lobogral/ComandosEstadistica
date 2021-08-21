@@ -1,15 +1,11 @@
-from sympy import integrate, Piecewise, oo, simplify
-from sympy.abc import t
+from sympy import Piecewise, oo, simplify, integrate
+from sympy.stats import P, cdf
 
-def ProbTotal(función, variable):
-    return integrate(función, (variable,-oo,oo))
+Prob = P
 
-def Prob(función, variable, a, b):
-    return integrate(función,(variable,a,b))
+def ProbTotal(fdp, variable):
+    return integrate(fdp, (variable,-oo,oo))
 
-def ProbAcum(función, variable, valor=None):
-    if valor==None:
-        integral = integrate(función.subs(variable,t), (t, -oo, variable))
-        return simplify(integral.rewrite(Piecewise))
-    else:
-        return integrate(función, (variable, -oo, valor))
+def ProbAcum(continuaVA, variable):
+    integral = cdf(continuaVA)(variable)
+    return simplify(integral.rewrite(Piecewise))
