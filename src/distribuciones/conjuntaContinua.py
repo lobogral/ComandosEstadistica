@@ -10,8 +10,8 @@ def establecerFdp(fdpNuevo):
     global fdp
     fdp = fdpNuevo
 
-def __AgregarIntervalo(función, intervalo):
-    funcionTrozos = Piecewise((función, intervalo),(0, True))
+def __AgregarIntervalo(función, area):
+    funcionTrozos = Piecewise((función, area),(0, True))
     return piecewise_fold(funcionTrozos)
 
 def ProbTotal(fdpPrueba):
@@ -32,11 +32,10 @@ def ProbMarginal(*variablesMar):
     integral = integrate(fdp, *lista) if lista else fdp
     return simplify(piecewise_fold(integral.rewrite(Piecewise)))
 
-def ProbCondicional(intervaloDep, *eqsIndep):
+def ProbCondicional(areaDep, *eqsIndep):
     varsIndep = And(*eqsIndep).atoms(Symbol)
-    varsDep = fdp.atoms(Symbol) - varsIndep
     valsIndep = solve([*eqsIndep], dict=True)
     funcCond = fdp/ProbMarginal(*varsIndep)
     funcCondEval = simplify(funcCond.subs(*valsIndep))
-    funcCondEvalInt = __AgregarIntervalo(funcCondEval, intervaloDep)
-    return integrate(funcCondEvalInt, (varsDep, -oo, oo))
+    funcCondEvalArea = __AgregarIntervalo(funcCondEval, areaDep)
+    return ProbTotal(funcCondEvalArea)
