@@ -1,10 +1,7 @@
 from sympy import integrate, Piecewise, oo, solve, And
 from sympy import simplify, piecewise_fold, Symbol
 
-x = Symbol("x", real=True)
-y = Symbol("y", real=True)
-
-fdp = x
+fdp = None
 
 def establecerFdp(fdpNuevo):
     global fdp
