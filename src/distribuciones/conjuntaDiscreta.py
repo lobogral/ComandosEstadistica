@@ -28,14 +28,15 @@ def Prob(área):
     )
 
 def ProbMarginal(varMar):
+    """ Solo funciona para dos variables """
     dicc = dist
     num = vars.index(varMar)
     listaVar = list(set([k[num] for k,v in dicc.items()]))
     suma = lambda val : sum([v for k,v in dicc.items() if k[num] == val])
     return {var:suma(var) for var in listaVar}
 
-
 def ProbCondicional(eqDep, eqIndep):
+    """ Solo funciona para dos variables """
     varIndep, = eqIndep.atoms(Symbol)
     valIndep, = solve(eqIndep)
     vals = tuple([solve([eqDep, eqIndep])[var] for var in vars])
