@@ -1,4 +1,4 @@
-from sympy import Piecewise, Symbol, solve
+from sympy import Piecewise, Symbol, solve, And
 from itertools import product
 
 dist = None
@@ -27,18 +27,21 @@ def Prob(área):
         if área.subs(dict(zip(vars,k)))]
     )
 
-def ProbMarginal(varMar):
-    """ Solo funciona para dos variables """
-    dicc = dist
-    num = vars.index(varMar)
-    listaVar = list(set([k[num] for k,v in dicc.items()]))
-    suma = lambda val : sum([v for k,v in dicc.items() if k[num] == val])
+def ProbMarginal(*varMar):
+    def selec(vals):
+        lista = [vals[vars.index(var)] for var in vars if var in [*varMar]]
+        return lista.pop() if (len([*varMar])==1) else tuple(lista)
+    def suma(val):
+        return sum([v for k,v in dist.items() if selec(k) == val])
+    listaVar = list(set([selec(k) for k,v in dist.items()]))
     return {var:suma(var) for var in listaVar}
 
-def ProbCondicional(eqDep, eqIndep):
-    """ Solo funciona para dos variables """
-    varIndep, = eqIndep.atoms(Symbol)
-    valIndep, = solve(eqIndep)
-    vals = tuple([solve([eqDep, eqIndep])[var] for var in vars])
-    marginal = ProbMarginal(varIndep)
-    return dist[vals]/marginal[valIndep]
+def ProbCondicional(listEqDep, listEqIndep):
+    def resolver(listEqs, varsSelec):
+        lista = [solve(listEqs)[var] for var in vars if var in varsSelec]
+        return lista.pop() if (len(varsSelec)==1) else tuple(lista)
+    varsIndep = And(*listEqIndep).atoms(Symbol)
+    valsIndep = resolver(listEqIndep, varsIndep)
+    vals = resolver(listEqDep + listEqIndep, vars)
+    marginal = ProbMarginal(*varsIndep)
+    return dist[vals]/marginal[valsIndep]
