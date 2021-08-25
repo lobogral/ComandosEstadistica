@@ -11,21 +11,14 @@ def establecerDist(distNueva, varsNuevas):
     vars = varsNuevas
 
 def Func2Dist(función, vars, *vals):
-    return {
-        k:función.subs(dict(zip(vars,k))) 
-        for k in list(product(*vals))
-    }
+    prodCart = list(product(*vals))
+    return {k:función.subs(dict(zip(vars,k))) for k in prodCart}
 
 def ProbTotal(distPrueba):
-    dicc = distPrueba
-    return sum([v for k,v in dicc.items()])
+    return sum(distPrueba.values())
 
 def Prob(área):
-    dicc = dist
-    return sum(
-        [v for k,v in dicc.items() 
-        if área.subs(dict(zip(vars,k)))]
-    )
+    return sum([v for k,v in dist.items() if área.subs(dict(zip(vars,k)))])
 
 def ProbMarginal(*varMar):
     def selec(vals):
