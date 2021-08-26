@@ -1,5 +1,4 @@
 from sympy import Piecewise, Symbol, summation, Eq
-from sympy.abc import j, x
 
 def Func2Troz(dp, dom):
     var, = dp.atoms(Symbol)
@@ -18,7 +17,7 @@ def ProbTotal(dpPru, domPru):
 def ProbAcum(dp, dom):
     var, = dp.atoms(Symbol)
     if isinstance(dom[var], tuple):
-        vals = range(*[sum(x) for x in zip(dom[var], (0,1))])
+        vals = range(*[sum(arr) for arr in zip(dom[var], (0,1))])
     else:
         vals = dom[var]
 
