@@ -1,9 +1,13 @@
 from sympy import Piecewise, Symbol, summation, Eq
 
-def Func2Troz(dp, dom):
-    var, = dp.atoms(Symbol)
-    lista = [(dp.subs(var,val), Eq(var,val)) for val in dom[var]]
-    return Piecewise(*lista)
+dp = None
+dom = None
+
+def establecerDpDom(dpNuevo, domNuevo=None):
+    global dp
+    global dom
+    dp = dpNuevo
+    dom = domNuevo
 
 def ProbTotal(dpPru, domPru):
     var, = dpPru.atoms(Symbol)
@@ -14,7 +18,15 @@ def ProbTotal(dpPru, domPru):
         vals = domPru[var]
         return sum([dpPru.subs(var, val) for val in vals])
 
-def ProbAcum(dp, dom):
+def Func2Troz():
+    var, = dp.atoms(Symbol)
+    lista = [(dp.subs(var,val), Eq(var,val)) for val in dom[var]]
+    return Piecewise(*lista)
+
+def Prob(subDom):
+    return ProbTotal(dp, subDom)
+
+def ProbAcum():
     var, = dp.atoms(Symbol)
     if isinstance(dom[var], tuple):
         vals = range(*[sum(arr) for arr in zip(dom[var], (0,1))])
