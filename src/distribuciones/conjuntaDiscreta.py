@@ -1,40 +1,51 @@
 from sympy import Piecewise, Symbol, solve, And
+from sympy import summation, Eq, piecewise_fold, simplify
 from itertools import product
 
-dist = None
-vars = None
+dp = None
+dom = None
 
-def establecerDist(distNueva, varsNuevas):
-    global dist
-    global vars
-    dist = distNueva
-    vars = varsNuevas
+def establecerDpDom(dpNuevo, domNuevo=None):
+    global dp
+    global dom
+    dp = dpNuevo
+    dom = domNuevo
 
-def Func2Dist(función, vars, *vals):
+def __AgregarIntervalo(función, area):
+    funcionTrozos = Piecewise((función, area),(0, True))
+    return piecewise_fold(funcionTrozos)
+
+def ProbTotal(dpPru, domPru):
+    prob = dpPru
+    for var in domPru.keys():
+        if isinstance(domPru[var], tuple):
+            intervalo = (var, *domPru[var])
+            prob = summation(prob, intervalo)
+        else:
+            vals = domPru[var]
+            prob = sum([prob.subs(var, val) for val in vals])
+    return prob
+
+def Func2Troz():
+    vars = dom.keys()
+    vals = [dom[var] for var in vars]
     prodCart = list(product(*vals))
-    return {k:función.subs(dict(zip(vars,k))) for k in prodCart}
+    return {k:dp.subs(dict(zip(vars,k))) for k in prodCart}
 
-def ProbTotal(distPrueba):
-    return sum(distPrueba.values())
+def Prob(area):
+    restric = __AgregarIntervalo(dp, area)
+    return ProbTotal(restric, dom)
 
-def Prob(área):
-    return sum([v for k,v in dist.items() if área.subs(dict(zip(vars,k)))])
-
-def ProbMarginal(*varMar):
-    def selec(vals):
-        lista = [vals[vars.index(var)] for var in vars if var in [*varMar]]
-        return lista.pop() if (len([*varMar])==1) else tuple(lista)
-    def suma(val):
-        return sum([v for k,v in dist.items() if selec(k) == val])
-    listaVar = list(set([selec(k) for k,v in dist.items()]))
-    return {var:suma(var) for var in listaVar}
+def ProbMarginal(*varsMar):
+    varsDp = dp.atoms(Symbol)
+    domMar = {var:dom[var] for var in varsDp - {*varsMar}}
+    return simplify(ProbTotal(dp, domMar))
 
 def ProbCondicional(listEqDep, listEqIndep):
-    def resolver(listEqs, varsSelec):
-        lista = [solve(listEqs)[var] for var in vars if var in varsSelec]
-        return lista.pop() if (len(varsSelec)==1) else tuple(lista)
+    valsDep = solve(listEqDep, dict=True)
+    valsIndep = solve(listEqIndep, dict=True)
     varsIndep = And(*listEqIndep).atoms(Symbol)
-    valsIndep = resolver(listEqIndep, varsIndep)
-    vals = resolver(listEqDep + listEqIndep, vars)
-    marginal = ProbMarginal(*varsIndep)
-    return dist[vals]/marginal[valsIndep]
+    funcCond = dp/ProbMarginal(*varsIndep)
+    funcCondEval = simplify(funcCond.subs(*valsIndep))
+    funcCondEvalEq = __AgregarIntervalo(funcCondEval, And(*listEqDep))
+    return simplify(funcCondEvalEq.subs(*valsDep))
