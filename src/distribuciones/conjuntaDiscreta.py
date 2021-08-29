@@ -5,7 +5,7 @@ from itertools import product
 dp = None
 dom = None
 
-def establecerDpDom(dpNuevo, domNuevo=None):
+def establecerDpDom(dpNuevo, domNuevo):
     global dp
     global dom
     dp = dpNuevo
@@ -26,24 +26,9 @@ def ProbTotal(dpPru, domPru):
             prob = sum([prob.subs(var, val) for val in vals])
     return prob
 
-def dp2Dist():
-    vars = dom.keys()
-    vals = [dom[var] for var in vars]
-    prodCart = list(product(*vals))
-    return {k:dp.subs(dict(zip(vars,k))) for k in prodCart}
-
-def dist2Dp(dist, vars):
-    def genEq(tupl):
-        return And(*[Eq(k, v) for k, v in zip(tupl, vars)])
-    def genDomVar(dist, var):
-        return list({val[vars.index(var)] for val in dist.keys()})
-    listaTrozDp = [(v, genEq(k)) for k, v in dist.items()]
-    listaDoms = {var: genDomVar(dist, var) for var in vars}
-    return Piecewise(*listaTrozDp), listaDoms
-
 def Prob(area):
-    restric = __AgregarIntervalo(dp, area)
-    return ProbTotal(restric, dom)
+    nuevaFunc = __AgregarIntervalo(dp, area)
+    return ProbTotal(nuevaFunc, dom)
 
 def ProbMarginal(*varsMar):
     varsDp = dp.atoms(Symbol)
@@ -58,3 +43,18 @@ def ProbCondicional(eqsDep, eqsIndep):
     funcCondEval = simplify(funcCond.subs(valsIndep))
     funcCondEvalEq = __AgregarIntervalo(funcCondEval, eqsDep)
     return simplify(funcCondEvalEq.subs(valsDep))
+
+def dp2Dist():
+    vars = dom.keys()
+    vals = [dom[var] for var in vars]
+    prodCart = list(product(*vals))
+    return {k:dp.subs(dict(zip(vars,k))) for k in prodCart}
+
+def dist2Dp(dist, vars):
+    def genEq(tupl):
+        return And(*[Eq(k, v) for k, v in zip(tupl, vars)])
+    def genDomVar(dist, var):
+        return list({val[vars.index(var)] for val in dist.keys()})
+    listaTrozDp = [(v, genEq(k)) for k, v in dist.items()]
+    listaDoms = {var: genDomVar(dist, var) for var in vars}
+    return Piecewise(*listaTrozDp), listaDoms
