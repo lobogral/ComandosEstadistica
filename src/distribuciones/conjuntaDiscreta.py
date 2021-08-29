@@ -26,11 +26,20 @@ def ProbTotal(dpPru, domPru):
             prob = sum([prob.subs(var, val) for val in vals])
     return prob
 
-def Func2Troz():
+def dp2Dist():
     vars = dom.keys()
     vals = [dom[var] for var in vars]
     prodCart = list(product(*vals))
     return {k:dp.subs(dict(zip(vars,k))) for k in prodCart}
+
+def dist2Dp(dist, vars):
+    def genEq(tupl):
+        return And(*[Eq(k, v) for k, v in zip(tupl, vars)])
+    def genDomVar(dist, var):
+        return list({val[vars.index(var)] for val in dist.keys()})
+    listaTrozDp = [(v, genEq(k)) for k, v in dist.items()]
+    listaDoms = {var: genDomVar(dist, var) for var in vars}
+    return Piecewise(*listaTrozDp), listaDoms
 
 def Prob(area):
     restric = __AgregarIntervalo(dp, area)
@@ -41,11 +50,11 @@ def ProbMarginal(*varsMar):
     domMar = {var:dom[var] for var in varsDp - {*varsMar}}
     return simplify(ProbTotal(dp, domMar))
 
-def ProbCondicional(listEqDep, listEqIndep):
-    valsDep = solve(listEqDep, dict=True)
-    valsIndep = solve(listEqIndep, dict=True)
-    varsIndep = And(*listEqIndep).atoms(Symbol)
+def ProbCondicional(eqsDep, eqsIndep):
+    valsDep = solve(eqsDep.atoms(Eq))
+    valsIndep = solve(eqsIndep.atoms(Eq))
+    varsIndep = eqsIndep.atoms(Symbol)
     funcCond = dp/ProbMarginal(*varsIndep)
-    funcCondEval = simplify(funcCond.subs(*valsIndep))
-    funcCondEvalEq = __AgregarIntervalo(funcCondEval, And(*listEqDep))
-    return simplify(funcCondEvalEq.subs(*valsDep))
+    funcCondEval = simplify(funcCond.subs(valsIndep))
+    funcCondEvalEq = __AgregarIntervalo(funcCondEval, eqsDep)
+    return simplify(funcCondEvalEq.subs(valsDep))
