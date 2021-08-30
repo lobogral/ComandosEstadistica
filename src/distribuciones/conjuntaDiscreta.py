@@ -60,7 +60,7 @@ def __EstablecerDominio(dp):
         val = list(*contain.atoms(FiniteSet))
         dom[var] = val
     for order in orders:
-        if len(order.atoms(Symbol))>1: continue
+        if eqs or contains: continue
         var, = order.atoms(Symbol)
         val = solveset(order, var, Naturals0)
         dom[var] = Intersection(dom[var], val)
