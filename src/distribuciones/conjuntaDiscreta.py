@@ -20,7 +20,7 @@ def ProbTotal(dpPru, varsPru=None):
     prob = dpPru
     for var in varsPru:
         if isinstance(domPru[var], Range):
-            inicio, final, _ = domPru[var].args
+            inicio, final = domPru[var].args
             prob = summation(prob, (var,inicio, final - 1))
         else:
             vals = domPru[var]
