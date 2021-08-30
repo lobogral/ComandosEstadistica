@@ -1,6 +1,7 @@
-from sympy import Piecewise, Symbol, solve, And, Contains, FiniteSet
-from sympy import summation, Eq, piecewise_fold, simplify, oo, Rel
+from sympy import Piecewise, Symbol, solve, And
+from sympy import Eq, piecewise_fold, simplify
 from sympy import Naturals0, solveset, Intersection, Range
+from sympy import FiniteSet, Contains, Rel, summation, oo
 from itertools import product
 
 dp = None
