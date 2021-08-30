@@ -12,18 +12,6 @@ def __AgregarIntervalo(función, area):
     funcionTrozos = Piecewise((función, area),(0, True))
     return piecewise_fold(funcionTrozos)
 
-def __EstablecerDominio(dp):
-    dom = {var:[] for var in dp.atoms(Symbol)}
-    for eq in dp.atoms(Eq):
-        var, = eq.atoms(Symbol)
-        val = solve(eq, var)
-        dom[var] += val
-    for contain in dp.atoms(Contains):
-        var, = contain.atoms(Symbol)
-        val = list(*contain.atoms(FiniteSet))
-        dom[var] = val
-    return dom
-
 def ProbTotal(dpPru, varsPru=None):
     if varsPru==None: varsPru=dpPru.atoms(Symbol)
     domPru = __EstablecerDominio(dpPru)
@@ -52,6 +40,18 @@ def ProbCondicional(eqsDep, eqsIndep):
     funcCondEval = simplify(funcCond.subs(valsIndep))
     funcCondEvalEqs = __AgregarIntervalo(funcCondEval, eqsDep)
     return ProbTotal(funcCondEvalEqs)
+
+def __EstablecerDominio(dp):
+    dom = {var:[] for var in dp.atoms(Symbol)}
+    for eq in dp.atoms(Eq):
+        var, = eq.atoms(Symbol)
+        val = solve(eq, var)
+        dom[var] += val
+    for contain in dp.atoms(Contains):
+        var, = contain.atoms(Symbol)
+        val = list(*contain.atoms(FiniteSet))
+        dom[var] = val
+    return dom
 
 def dp2Dist(*vars):
     dom = __EstablecerDominio(dp)
