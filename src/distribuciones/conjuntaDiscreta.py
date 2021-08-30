@@ -1,5 +1,6 @@
 from sympy import Piecewise, Symbol, solve, And, Contains, FiniteSet
-from sympy import summation, Eq, piecewise_fold, simplify, oo
+from sympy import summation, Eq, piecewise_fold, simplify, oo, Rel
+from sympy import Naturals0, solveset, Intersection, Range
 from itertools import product
 
 dp = None
@@ -17,11 +18,12 @@ def ProbTotal(dpPru, varsPru=None):
     domPru = __EstablecerDominio(dpPru)
     prob = dpPru
     for var in varsPru:
-        if domPru[var]:
-            vals = domPru[var]
-            prob = sum([prob.subs(var, val) for val in vals])
+        if isinstance(domPru[var], Range):
+            inicio, final, _ = domPru[var].args
+            prob = summation(prob, (var,inicio, final - 1))
         else:
-            prob = summation(prob, (var,0,oo))
+            vals = domPru[var]
+            prob = sum([prob.subs(var, val) for val in vals])  
     return prob
 
 def Prob(area):
@@ -42,15 +44,25 @@ def ProbCondicional(eqsDep, eqsIndep):
     return ProbTotal(funcCondEvalEqs)
 
 def __EstablecerDominio(dp):
-    dom = {var:[] for var in dp.atoms(Symbol)}
-    for eq in dp.atoms(Eq):
+    eqs = dp.atoms(Eq)
+    contains = dp.atoms(Contains)
+    orders = dp.atoms(Rel) - eqs - contains
+    dom = {}
+    for var in dp.atoms(Symbol):
+        dom[var] = [] if eqs or contains else Range(0,oo) 
+    for eq in eqs:
         var, = eq.atoms(Symbol)
         val = solve(eq, var)
         dom[var] += val
-    for contain in dp.atoms(Contains):
+    for contain in contains:
         var, = contain.atoms(Symbol)
         val = list(*contain.atoms(FiniteSet))
         dom[var] = val
+    for order in orders:
+        if len(order.atoms(Symbol))>1: continue
+        var, = order.atoms(Symbol)
+        val = solveset(order, var, Naturals0)
+        dom[var] = Intersection(dom[var], val)
     return dom
 
 def dp2Dist(*vars):
