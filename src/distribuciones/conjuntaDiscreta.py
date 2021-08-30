@@ -14,19 +14,6 @@ def __AgregarIntervalo(función, area):
     funcionTrozos = Piecewise((función, area),(0, True))
     return piecewise_fold(funcionTrozos)
 
-def ProbTotal(dpPru, varsPru=None):
-    if varsPru==None: varsPru=dpPru.atoms(Symbol)
-    domPru = __EstablecerDominio(dpPru)
-    prob = dpPru
-    for var in varsPru:
-        if isinstance(domPru[var], Range):
-            inicio, final = domPru[var].args
-            prob = summation(prob, (var,inicio, final - 1))
-        else:
-            vals = domPru[var]
-            prob = sum([prob.subs(var, val) for val in vals])  
-    return prob
-
 def Prob(area):
     nuevaFunc = __AgregarIntervalo(dp, area)
     return ProbTotal(nuevaFunc)
@@ -43,6 +30,19 @@ def ProbCondicional(eqsDep, eqsIndep):
     funcCondEval = simplify(funcCond.subs(valsIndep))
     funcCondEvalEqs = __AgregarIntervalo(funcCondEval, eqsDep)
     return ProbTotal(funcCondEvalEqs)
+
+def ProbTotal(dpPru, varsPru=None):
+    if varsPru==None: varsPru=dpPru.atoms(Symbol)
+    domPru = __EstablecerDominio(dpPru)
+    prob = dpPru
+    for var in varsPru:
+        if isinstance(domPru[var], Range):
+            inicio, final = domPru[var].args
+            prob = summation(prob, (var,inicio, final - 1))
+        else:
+            vals = domPru[var]
+            prob = sum([prob.subs(var, val) for val in vals])  
+    return prob
 
 def __EstablecerDominio(dp):
     eqs = dp.atoms(Eq)
