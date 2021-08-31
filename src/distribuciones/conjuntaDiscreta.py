@@ -1,7 +1,7 @@
 from sympy import Piecewise, Symbol, solve, And
 from sympy import Eq, piecewise_fold, simplify
 from sympy import Naturals0, solveset, Intersection, Range
-from sympy import FiniteSet, Contains, Rel, summation, oo
+from sympy import FiniteSet, Contains, Rel, Sum, oo
 from itertools import product
 
 dp = None
@@ -37,12 +37,12 @@ def ProbTotal(dpPru, varsPru=None):
     prob = dpPru
     for var in varsPru:
         if isinstance(domPru[var], Range):
-            inicio, final = domPru[var].args
-            prob = summation(prob, (var,inicio, final - 1))
+            inicio, final, _ = domPru[var].args
+            prob = Sum(prob, (var, inicio, final - 1))
         else:
             vals = domPru[var]
             prob = sum([prob.subs(var, val) for val in vals])  
-    return prob
+    return prob.doit()
 
 def __EstablecerDominio(dp):
     eqs = dp.atoms(Eq)
