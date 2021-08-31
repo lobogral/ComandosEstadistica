@@ -12,6 +12,10 @@ def __AgregarIntervalo(función, intervalo):
     funcionTrozos = Piecewise((función, intervalo),(0, True))
     return piecewise_fold(funcionTrozos)
 
+def Prob(intervalo):
+    nuevaFunc = __AgregarIntervalo(dp, intervalo)
+    return ProbTotal(nuevaFunc)
+
 def ProbTotal(dpPru):
     domPru = __EstablecerDominio(dpPru)
     var, = dpPru.atoms(Symbol)
@@ -21,10 +25,6 @@ def ProbTotal(dpPru):
     else:
         vals = domPru[var]
         return sum([dpPru.subs(var, val) for val in vals])
-
-def Prob(intervalo):
-    nuevaFunc = __AgregarIntervalo(dp, intervalo)
-    return ProbTotal(nuevaFunc)
 
 def ProbAcum():
     var, = dp.atoms(Symbol)
