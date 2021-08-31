@@ -10,12 +10,12 @@ def establecerDp(dpNuevo):
     global dp
     dp = dpNuevo
 
-def __AgregarIntervalo(función, area):
+def __AgregarArea(función, area):
     funcionTrozos = Piecewise((función, area),(0, True))
     return piecewise_fold(funcionTrozos)
 
 def Prob(area):
-    nuevaFunc = __AgregarIntervalo(dp, area)
+    nuevaFunc = __AgregarArea(dp, area)
     return ProbTotal(nuevaFunc)
 
 def ProbMarginal(*varsMar):
@@ -28,7 +28,7 @@ def ProbCondicional(eqsDep, eqsIndep):
     varsIndep = eqsIndep.atoms(Symbol)
     funcCond = dp/ProbMarginal(*varsIndep)
     funcCondEval = simplify(funcCond.subs(valsIndep))
-    funcCondEvalEqs = __AgregarIntervalo(funcCondEval, eqsDep)
+    funcCondEvalEqs = __AgregarArea(funcCondEval, eqsDep)
     return ProbTotal(funcCondEvalEqs)
 
 def ProbTotal(dpPru, varsPru=None):
