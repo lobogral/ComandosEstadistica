@@ -21,7 +21,8 @@ def Prob(area):
 def ProbMarginal(*varsMar):
     varsDp = dp.atoms(Symbol)
     varsMar = varsDp - {*varsMar}
-    return simplify(ProbTotal(dp, varsMar))
+    prob = ProbTotal(dp, varsMar)
+    return simplify(prob)
 
 def ProbCondicional(eqsDep, eqsIndep):
     valsIndep = solve(eqsIndep.atoms(Eq))

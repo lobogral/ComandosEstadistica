@@ -1,5 +1,5 @@
-from sympy import integrate, Piecewise, oo, solve, And
-from sympy import simplify, piecewise_fold, Symbol
+from sympy import integrate, Piecewise, oo, solve
+from sympy import simplify, piecewise_fold, Symbol, Eq
 
 fdp = None
 
@@ -7,32 +7,30 @@ def establecerFdp(fdpNuevo):
     global fdp
     fdp = fdpNuevo
 
-def __AgregarIntervalo(función, area):
+def __AgregarArea(función, area):
     funcionTrozos = Piecewise((función, area),(0, True))
     return piecewise_fold(funcionTrozos)
 
-def ProbTotal(fdpPrueba):
-    variables = fdpPrueba.atoms(Symbol)
-    lista = [(variable, -oo, oo) for variable in variables]
-    return integrate(fdpPrueba, *lista)
-
 def Prob(area):
-    nuevaFunc = __AgregarIntervalo(fdp, area)
+    nuevaFunc = __AgregarArea(fdp, area)
     return ProbTotal(nuevaFunc)
 
-def ProbMarginal(*variablesMar):
-    variablesFdp = fdp.atoms(Symbol)
-    lista = [
-        (variable, -oo, oo) 
-        for variable in variablesFdp - {*variablesMar}
-    ]
-    integral = integrate(fdp, *lista) if lista else fdp
-    return simplify(piecewise_fold(integral.rewrite(Piecewise)))
+def ProbMarginal(*varsMar):
+    varsFdp = fdp.atoms(Symbol)
+    varsMar = varsFdp - {*varsMar}
+    prob = ProbTotal(fdp, varsMar)
+    return simplify(prob)
 
-def ProbCondicional(areaDep, *eqsIndep):
-    varsIndep = And(*eqsIndep).atoms(Symbol)
-    valsIndep = solve([*eqsIndep], dict=True)
+def ProbCondicional(areaDep, eqsIndep):
+    valsIndep = solve(eqsIndep.atoms(Eq))
+    varsIndep = eqsIndep.atoms(Symbol)
     funcCond = fdp/ProbMarginal(*varsIndep)
-    funcCondEval = simplify(funcCond.subs(*valsIndep))
-    funcCondEvalArea = __AgregarIntervalo(funcCondEval, areaDep)
+    funcCondEval = simplify(funcCond.subs(valsIndep))
+    funcCondEvalArea = __AgregarArea(funcCondEval, areaDep)
     return ProbTotal(funcCondEvalArea)
+
+def ProbTotal(fdpPru, varsPru=None):
+    if varsPru==None: varsPru=fdpPru.atoms(Symbol)
+    lista = [(varPru, -oo, oo) for varPru in varsPru]
+    prob = integrate(fdpPru, *lista)
+    return piecewise_fold(prob.rewrite(Piecewise))
