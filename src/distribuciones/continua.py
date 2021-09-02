@@ -1,13 +1,26 @@
-from sympy import Piecewise, oo, simplify, integrate, Symbol
-from sympy.stats import P, cdf
+from sympy import Piecewise, oo, simplify, integrate
+from sympy import Symbol, piecewise_fold
+from sympy.abc import t
 
-Prob = P
+fdp = None
 
-def ProbTotal(fdp):
-    variable = fdp.atoms(Symbol)
-    return integrate(fdp, (variable,-oo,oo))
+def establecerFdp(fdpNuevo):
+    global fdp
+    fdp = fdpNuevo
 
-def ProbAcum(continuaVA):
-    variable = continuaVA.atoms(Symbol)
-    integral = cdf(continuaVA)(*variable)
+def __AgregarIntervalo(función, intervalo):
+    funcionTrozos = Piecewise((función, intervalo),(0, True))
+    return piecewise_fold(funcionTrozos)
+
+def Prob(intervalo):
+    nuevaFunc = __AgregarIntervalo(fdp, intervalo)
+    return ProbTotal(nuevaFunc)
+
+def ProbTotal(fdpPru):
+    varPru, = fdpPru.atoms(Symbol)
+    return integrate(fdpPru, (varPru, -oo, oo))
+
+def ProbAcum():
+    var, = fdp.atoms(Symbol)
+    integral = integrate(fdp.subs(var,t), (t, -oo, var))
     return simplify(integral.rewrite(Piecewise))
