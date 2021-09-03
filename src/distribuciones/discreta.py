@@ -1,6 +1,6 @@
-from sympy import Piecewise, Symbol, summation, Eq, piecewise_fold
-from sympy import Contains, Rel, Range, oo, solveset
-from sympy import Naturals0, FiniteSet, EmptySet
+from sympy import Piecewise, Symbol, summation, piecewise_fold
+from sympy import Rel, Range, solveset, Eq
+from sympy import Naturals0, EmptySet
 
 dp = None
 
@@ -42,7 +42,6 @@ def ProbAcum():
 def __EstablecerDominio(dp):
     var, = dp.atoms(Symbol)
     eqs = dp.atoms(Eq)
-    contains = dp.atoms(Contains)
     orders = dp.atoms(Rel) - eqs
     dom = {var:EmptySet}
     for order in orders:
@@ -50,9 +49,6 @@ def __EstablecerDominio(dp):
         dom[var] = dom[var] & val if dom[var] else val
     for eq in eqs:
         val = solveset(eq, var)
-        dom[var] = dom[var] | val
-    for contain in contains:
-        val, = contain.atoms(FiniteSet)
         dom[var] = dom[var] | val
     return dom
 

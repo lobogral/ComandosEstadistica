@@ -1,7 +1,7 @@
 from sympy import Piecewise, Symbol, solve, And
 from sympy import Eq, piecewise_fold, simplify
 from sympy import Naturals0, solveset, Range, EmptySet
-from sympy import FiniteSet, Contains, Rel, Sum, oo
+from sympy import Rel, Sum
 from itertools import product
 
 dp = None
@@ -47,7 +47,6 @@ def ProbTotal(dpPru, varsPru=None):
 
 def __EstablecerDominio(dp):
     eqs = dp.atoms(Eq)
-    contains = dp.atoms(Contains)
     orders = dp.atoms(Rel) - eqs
     dom = {var:EmptySet for var in dp.atoms(Symbol)} 
     for order in orders:
@@ -58,10 +57,6 @@ def __EstablecerDominio(dp):
     for eq in eqs:
         var, = eq.atoms(Symbol)
         val = solveset(eq, var)
-        dom[var] = dom[var] | val
-    for contain in contains:
-        var, = contain.atoms(Symbol)
-        val, = contain.atoms(FiniteSet)
         dom[var] = dom[var] | val
     return dom
 
