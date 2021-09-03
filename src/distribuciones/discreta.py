@@ -1,6 +1,6 @@
 from sympy import Piecewise, Symbol, summation, Eq, piecewise_fold
 from sympy import Contains, Rel, Range, oo, solveset
-from sympy import Naturals0, Intersection, FiniteSet, solve
+from sympy import Naturals0, FiniteSet, EmptySet
 
 dp = None
 
@@ -43,18 +43,17 @@ def __EstablecerDominio(dp):
     var, = dp.atoms(Symbol)
     eqs = dp.atoms(Eq)
     contains = dp.atoms(Contains)
-    orders = dp.atoms(Rel) - eqs - contains
-    dom = {var:[]} if eqs or contains else {var:Range(0,oo)}
-    for eq in eqs:
-        val = solve(eq, var)
-        dom[var] += val
-    for contain in contains:
-        val = list(*contain.atoms(FiniteSet))
-        dom[var] = val
+    orders = dp.atoms(Rel) - eqs
+    dom = {var:EmptySet}
     for order in orders:
-        if eqs or contains: continue
         val = solveset(order, var, Naturals0)
-        dom[var] = Intersection(dom[var], val)
+        dom[var] = dom[var] & val if dom[var] else val
+    for eq in eqs:
+        val = solveset(eq, var)
+        dom[var] = dom[var] | val
+    for contain in contains:
+        val, = contain.atoms(FiniteSet)
+        dom[var] = dom[var] | val
     return dom
 
 def dp2Dist():
