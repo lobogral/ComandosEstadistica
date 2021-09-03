@@ -1,6 +1,6 @@
 from sympy import Piecewise, Symbol, summation, piecewise_fold
 from sympy import Rel, Range, solveset, Eq
-from sympy import Naturals0, EmptySet
+from sympy import Integers, EmptySet
 
 dp = None
 
@@ -45,7 +45,7 @@ def __EstablecerDominio(dp):
     orders = dp.atoms(Rel) - eqs
     dom = {var:EmptySet}
     for order in orders:
-        val = solveset(order, var, Naturals0)
+        val = solveset(order, var, Integers)
         dom[var] = dom[var] & val if dom[var] else val
     for eq in eqs:
         val = solveset(eq, var)
