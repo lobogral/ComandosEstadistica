@@ -1,8 +1,7 @@
 from distribuciones import conjuntaDiscreta as conjDisc
 from distribuciones import discreta as disc
-from functools import reduce
+from math import prod, sqrt
 from sympy import Symbol
-from math import sqrt
 
 establecerDp = conjDisc.establecerDp
 
@@ -22,10 +21,10 @@ def desv(func):
     return sqrt(Var(func))
 
 def Cov():
-    dp = conjDisc.dp
-    mulSymbol = reduce(lambda a, b: a*b, dp.atoms(Symbol))
-    mulEsp = reduce(lambda a, b: E(a)*E(b), dp.atoms(Symbol))
-    return E(mulSymbol)-mulEsp
+    vars = conjDisc.dp.atoms(Symbol)
+    prodVars = prod(vars)
+    prodEsp = prod([E(var) for var in vars])
+    return E(prodVars)-prodEsp
 
 def dist2Dp(dist, vars):
     if(isinstance(vars, Symbol)):

@@ -1,6 +1,6 @@
 from distribuciones import conjuntaContinua as conjCont
-from functools import reduce
 from sympy import Symbol
+from math import prod
 
 establecerFdp = conjCont.establecerFdp
 
@@ -19,7 +19,7 @@ def desv(func):
     return sqrt(Var(func))
 
 def Cov():
-    fdp = conjCont.fdp
-    mulSymbol = reduce(lambda a, b: a*b, fdp.atoms(Symbol))
-    mulEsp = reduce(lambda a, b: E(a)*E(b), fdp.atoms(Symbol))
-    return E(mulSymbol)-mulEsp
+    vars = conjCont.fdp.atoms(Symbol)
+    prodVars = prod(vars)
+    prodEsp = prod([E(var) for var in vars])
+    return E(prodVars)-prodEsp
