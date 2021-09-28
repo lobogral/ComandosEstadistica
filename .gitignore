@@ -1,2 +1,4 @@
 __pycache__
 modules/
+dist
+estadistica.egg-info
