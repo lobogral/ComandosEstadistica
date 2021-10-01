@@ -9,9 +9,9 @@ def mediana(muestra):
     else:
         return (muestra[n//2-1]+muestra[n//2])/2
     
-def mediaRecortada(muestra, porcentaje):
+def media_recortada(muestra, porcentaje):
     n = len(muestra)
     muestra = sorted(muestra)
-    numDatosRetirados = round(porcentaje*n)
-    muestra = muestra[numDatosRetirados:(n - numDatosRetirados)]
-    return sum(muestra)/(n - numDatosRetirados*2)
+    num_datos_retirados = round(porcentaje*n)
+    muestra = muestra[num_datos_retirados:(n - num_datos_retirados)]
+    return sum(muestra)/(n - num_datos_retirados*2)

@@ -3,9 +3,9 @@ def rango(muestra):
 
 def varianza(muestra):
     media = sum(muestra)/len(muestra)
-    listaMedias = [media]*len(muestra)
-    cuadrados = [(x - y)**2 for x, y in zip(muestra, listaMedias)]
+    lista_medias = [media]*len(muestra)
+    cuadrados = [(x - y)**2 for x, y in zip(muestra, lista_medias)]
     return sum(cuadrados)/(len(cuadrados)-1)
     
-def desviaciónEstándar(muestra):
+def desviacion_estandar(muestra):
     return varianza(muestra)**(0.5)
