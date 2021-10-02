@@ -6,8 +6,8 @@ def factorial(n):
 def nP(n,r):
     return factorial(n) // factorial (n-r)
 
-def nT(n, listArgs):
-    mult = prod([factorial(i) for i in listArgs])
+def nT(n, list_args):
+    mult = prod([factorial(i) for i in list_args])
     return factorial(n) // mult
 
 def nC(n,r):
