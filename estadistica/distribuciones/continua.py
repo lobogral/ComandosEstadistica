@@ -4,23 +4,23 @@ from sympy.abc import t
 
 fdp = None
 
-def establecerFdp(fdpNuevo):
+def establecer_fdp(fdp_nuevo):
     global fdp
-    fdp = fdpNuevo
+    fdp = fdp_nuevo
 
-def __AgregarIntervalo(función, intervalo):
-    funcionTrozos = Piecewise((función, intervalo),(0, True))
-    return piecewise_fold(funcionTrozos)
+def __agregar_intervalo(funcion, intervalo):
+    funcion_trozos = Piecewise((funcion, intervalo),(0, True))
+    return piecewise_fold(funcion_trozos)
 
-def Prob(intervalo):
-    nuevaFunc = __AgregarIntervalo(fdp, intervalo)
-    return ProbTotal(nuevaFunc)
+def prob(intervalo):
+    nueva_func = __agregar_intervalo(fdp, intervalo)
+    return prob_total(nueva_func)
 
-def ProbTotal(fdpPru):
-    varPru, = fdpPru.atoms(Symbol)
-    return integrate(fdpPru, (varPru, -oo, oo))
+def prob_total(fdp_pru):
+    var_pru, = fdp_pru.atoms(Symbol)
+    return integrate(fdp_pru, (var_pru, -oo, oo))
 
-def ProbAcum():
+def prob_acum():
     var, = fdp.atoms(Symbol)
     integral = integrate(fdp.subs(var,t), (t, -oo, var))
     return simplify(integral.rewrite(Piecewise))
