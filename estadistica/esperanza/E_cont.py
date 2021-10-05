@@ -1,15 +1,15 @@
-from estadistica.distribuciones import conjunta_continua as conj_cont
+from estadistica.distribuciones import dist_conj_cont
 from sympy import Symbol
 from math import prod
 
-establecer_fdp = conj_cont.establecer_fdp
+establecer_fdp = dist_conj_cont.establecer_fdp
 
 def E(func):
-    return conj_cont.prob_total(func*conj_cont.fdp)
+    return dist_conj_cont.prob_total(func*dist_conj_cont.fdp)
 
 def Var(func):
-    fdp = conj_cont.fdp
-    return conj_cont.prob_total(((func - E(func))**2)*fdp)
+    fdp = dist_conj_cont.fdp
+    return dist_conj_cont.prob_total(((func - E(func))**2)*fdp)
 
 def Var_Alter(func):
     var, = func.atoms(Symbol)
@@ -19,7 +19,7 @@ def desv(func):
     return sqrt(Var(func))
 
 def Cov():
-    vars = conj_cont.fdp.atoms(Symbol)
+    vars = dist_conj_cont.fdp.atoms(Symbol)
     prod_Var = prod(vars)
     prod_E = prod([E(var) for var in vars])
     return E(prod_Var)-prod_E
