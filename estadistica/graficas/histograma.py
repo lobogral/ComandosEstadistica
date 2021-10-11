@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 def dibujar(diccionarios, titulo_ventana, unidad_medida):
     plt.figure(titulo_ventana)
     plt.xlabel(unidad_medida)

@@ -1,19 +1,21 @@
-from redondeo.redondeo import *
+from redondeo.redondeo import redondear
+
 
 def __obtener_tabla(datos, paso, minimo, maximo, num_divisiones):
-    tabla = []   
+    tabla = []
     div = (maximo-minimo)/num_divisiones
     for i in range(num_divisiones):
         min_cls = minimo + div*i
         max_cls = minimo + div*(i+1) - paso
-        frec = len([dato for dato in datos if min_cls<=dato<=max_cls])
+        frec = len([dato for dato in datos if min_cls <= dato <= max_cls])
         tabla += [{
             'int_cls': f'{min_cls}-{max_cls}',
             'pnt_med': str((min_cls+max_cls)/2),
             'frec': frec,
             'frec_rel': redondear(frec/len(datos), 3)
-        }]   
+        }]
     return tabla
+
 
 def imprimir_tabla(datos, paso, minimo, maximo, num_divisiones):
     tabla = __obtener_tabla(datos, paso, minimo, maximo, num_divisiones)
@@ -34,6 +36,7 @@ def imprimir_tabla(datos, paso, minimo, maximo, num_divisiones):
         print('{:>{}}'.format(frec, espacios), end="")
         espacios = len(str_frec) - len(str(frec)) + len(str(frec_rel))
         print('{:>{}}'.format(frec_rel, espacios))
+
 
 def establecer_datos_hist(datos, paso, minimo, maximo, num_divisiones):
     tabla = __obtener_tabla(datos, paso, minimo, maximo, num_divisiones)
