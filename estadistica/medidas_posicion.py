@@ -1,33 +1,38 @@
-"""
-Modulo que ofrece funcionalidades para calcular
-las medidas de posicion de una muestra
-"""
+"""Calcula medidas de posicion de una muestra."""
+from typing import Union
 
-def media(muestra):
 
-    """
-    Calcula la media o el promedio aritmetico de una muestra
+def media(muestra: list[Union[int, float]]) -> float:
+    """Calcula el promedio aritmetico de una muestra.
 
-    Parametros
+    Parameters
     ----------
-    muestra: Arreglo de datos
+    muestra
+        Arreglo de datos
+
+    Returns
+    -------
+    float
+        Media
 
     """
-
     return sum(muestra)/len(muestra)
 
 
-def mediana(muestra):
+def mediana(muestra: list[Union[int, float]]) -> Union[float, int]:
+    """Calcula la mediana de una muestra.
 
-    """
-    Calcula la mediana de una muestra
-
-    Parametros
+    Parameters
     ----------
-    muestra: Arreglo de datos
+    muestra
+        Arreglo de datos
+
+    Returns
+    -------
+    float | int
+        Mediana
 
     """
-
     num_datos = len(muestra)
     muestra = sorted(muestra)
     if len(muestra) % 2 != 0:
@@ -35,18 +40,23 @@ def mediana(muestra):
     return (muestra[num_datos//2-1]+muestra[num_datos//2])/2
 
 
-def media_recortada(muestra, porcentaje):
+def media_recortada(muestra: list[Union[int, float]],
+                    porcentaje: float) -> float:
+    """Calcula la mediana recortada de una muestra.
 
-    """
-    Calcula la mediana recortada de una muestra
-
-    Parametros
+    Parameters
     ----------
-    muestra: Arreglo de datos
-    porcentaje: Porcentaje de recorte
+    muestra
+        Arreglo de datos
+    porcentaje
+        Porcentaje de recorte
+
+    Returns
+    -------
+    float
+        Media recortada
 
     """
-
     num_datos = len(muestra)
     muestra = sorted(muestra)
     num_datos_ret = round(porcentaje*num_datos)
