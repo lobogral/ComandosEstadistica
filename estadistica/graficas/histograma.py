@@ -1,5 +1,4 @@
 """Realiza una grafica de histograma."""
-
 from matplotlib import pyplot as plt
 from redondeo.redondeo import redondear
 

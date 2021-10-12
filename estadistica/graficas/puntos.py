@@ -1,5 +1,4 @@
 """Realiza una grafica de puntos unidimensional."""
-
 from matplotlib import pyplot as plt
 
 
