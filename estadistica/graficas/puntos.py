@@ -1,14 +1,11 @@
-"""
-Realiza una grafica de puntos unidimensional
-"""
+"""Realiza una grafica de puntos unidimensional."""
 
 from matplotlib import pyplot as plt
 
 
 def dibujar(diccionarios, titulo_ventana, unidad_medida):
-
     """
-    Realiza lo descrito en el docstring del modulo
+    Realiza lo descrito en el docstring del modulo.
 
     Parametros
     ----------
@@ -40,9 +37,8 @@ def dibujar(diccionarios, titulo_ventana, unidad_medida):
 
 
 def __establecer_valores(diccionarios):
-
     """
-    Transforma un diccionario en otro
+    Transforma un diccionario en otro.
 
     Retorno
     -------
@@ -64,7 +60,6 @@ def __establecer_valores(diccionarios):
     unidad_medida: Unidad de la medida
 
     """
-
     vals_x = [val for dic in diccionarios for val in dic['muestra']]
     vals_y = [vals_x[0:i+1].count(vals_x[i])-1 for i in range(len(vals_x))]
     num_elem = len(vals_y)//len(diccionarios)

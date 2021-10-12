@@ -2,7 +2,7 @@
 Realiza una grafica de histograma
 """
 
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 
 def dibujar(diccionarios, titulo_ventana, unidad_medida):
