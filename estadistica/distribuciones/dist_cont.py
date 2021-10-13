@@ -33,8 +33,8 @@ def __agregar_relacion(expresion: Expr,
                        relacion: Rel) -> Piecewise:
     """Crea una funcion a trozos con la relacion.
 
-    La intencion es crear una nueva expresion (Piecewise), 
-    en la cual la expresion actual es valida en la relacion 
+    La intencion es crear una nueva expresion (Piecewise),
+    en la cual la expresion actual es valida en la relacion
     planteada y fuera de esta la nueva expresion es 0.
 
     Parameters
@@ -89,7 +89,7 @@ def prob_total(fdp_pru: Expr) -> Expr:
 
 def prob_acum() -> Piecewise:
     """Calcula la probabilidad acumulada de la FDP.
-    
+
     Returns
     -------
     Piecewise
