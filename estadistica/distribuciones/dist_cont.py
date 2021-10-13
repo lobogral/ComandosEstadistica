@@ -29,7 +29,7 @@ def establecer_fdp(fdp_nuevo: Expr) -> None:
     FDP = fdp_nuevo
 
 
-def __agregar_relacion(funcion: Expr,
+def __agregar_relacion(expresion: Expr,
                        relacion: Rel) -> Piecewise:
     """Crea una funcion a trozos con la relacion.
 
@@ -39,12 +39,12 @@ def __agregar_relacion(funcion: Expr,
 
     Parameters
     ----------
-    funcion
-        Funcion de entrada
+    expresion
+        Expresion de entrada
     relacion
         Relacion a la que se aplica la funcion
     """
-    funcion_trozos = Piecewise((funcion, relacion), (0, True))
+    funcion_trozos = Piecewise((expresion, relacion), (0, True))
     return piecewise_fold(funcion_trozos)
 
 
