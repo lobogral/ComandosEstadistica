@@ -1,32 +1,79 @@
-from sympy import Piecewise, oo, simplify, integrate
-from sympy import Symbol, piecewise_fold
+"""Comandos para una distribucion continua.
+
+La distibucion continua tambien es llamada
+funcion de densidad de probabilidad (fdp)
+"""
+from sympy import Piecewise
+from sympy import oo
+from sympy import simplify
+from sympy import integrate
+from sympy import Symbol
+from sympy import piecewise_fold
+from sympy import Rel
+from sympy import Expr
 from sympy.abc import t
 
 
-fdp = None
+FDP: Expr = None
 
 
-def establecer_fdp(fdp_nuevo):
-    global fdp
-    fdp = fdp_nuevo
+def establecer_fdp(fdp_nuevo: Expr) -> None:
+    """Establece el FDP.
+
+    Parameters
+    ----------
+    fdp_nuevo
+        Funcion de densidad nueva
+    """
+    global FDP
+    FDP = fdp_nuevo
 
 
-def __agregar_intervalo(funcion, intervalo):
-    funcion_trozos = Piecewise((funcion, intervalo), (0, True))
+def __agregar_relacion(funcion: Expr,
+                       relacion: Rel) -> Piecewise:
+    """Crea una funcion a trozos con la relacion.
+
+    La intencion es crear una nueva funcion, en la cual
+    la funcion actual es valida en la relacion planteada
+    y fuera de esta la nueva funcion es 0.
+
+    Parameters
+    ----------
+    funcion
+        Funcion de entrada
+    relacion
+        Relacion a la que se aplica la funcion
+    """
+    funcion_trozos = Piecewise((funcion, relacion), (0, True))
     return piecewise_fold(funcion_trozos)
 
 
-def prob(intervalo):
-    nueva_func = __agregar_intervalo(fdp, intervalo)
+def prob(relacion: Rel):
+    """Calcula la probabilidad sobre una relacion de la FDP.
+
+    Parameters
+    ----------
+    relacion
+        Relacion a la que se aplica el FDP
+    """
+    nueva_func = __agregar_relacion(FDP, relacion)
     return prob_total(nueva_func)
 
 
-def prob_total(fdp_pru):
+def prob_total(fdp_pru: Expr) -> Expr:
+    """Calcula la probabilidad total de una fdp.
+
+    Parameters
+    ----------
+    fdp_pru
+        Fdp de prueba
+    """
     var_pru, = fdp_pru.atoms(Symbol)
     return integrate(fdp_pru, (var_pru, -oo, oo))
 
 
-def prob_acum():
-    var, = fdp.atoms(Symbol)
-    integral = integrate(fdp.subs(var, t), (t, -oo, var))
+def prob_acum() -> Piecewise:
+    """Calcula la probabilidad acumulada de la FDP."""
+    var, = FDP.atoms(Symbol)
+    integral = integrate(FDP.subs(var, t), (t, -oo, var))
     return simplify(integral.rewrite(Piecewise))
