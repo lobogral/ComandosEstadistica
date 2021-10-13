@@ -18,7 +18,7 @@ FDP: Expr = None
 
 
 def establecer_fdp(fdp_nuevo: Expr) -> None:
-    """Establece el FDP.
+    """Establece la FDP.
 
     Parameters
     ----------
