@@ -1,4 +1,4 @@
-"""Comandos para una distribuciones conjuntas continuas."""
+"""Comandos para distribuciones conjuntas continuas."""
 from sympy import integrate
 from sympy import Piecewise
 from sympy import oo
