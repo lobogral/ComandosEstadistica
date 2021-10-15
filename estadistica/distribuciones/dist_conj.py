@@ -44,6 +44,5 @@ class DistConj(Dist):
         func_cond_eval_area = piecewise_fold(
             Piecewise(
                 (func_cond_eval, area_dep),
-                (0, True))
-            )
+                (0, True)))
         return self.prob_total(func_cond_eval_area)
