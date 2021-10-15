@@ -61,6 +61,8 @@ class Dist(ABC):
         ----------
         func_dist_pru
             FD de prueba
+        vars_pru
+            Variables de prueba
 
         Returns
         -------

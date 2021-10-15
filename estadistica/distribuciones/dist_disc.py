@@ -11,7 +11,9 @@ from estadistica.distribuciones.transf import establecer_dominio
 class DistDisc(Dist):
     """Ofrece funciones para distribuciones discretas."""
 
-    def prob_total(self, func_dist_pru: Expr) -> Expr:
+    def prob_total(self,
+                   func_dist_pru: Expr,
+                   vars_pru: set[Symbol] = None) -> Expr:
         """Calcula la probabilidad total de una FD.
 
         Para mas informacion revisar
