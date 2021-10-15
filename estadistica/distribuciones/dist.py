@@ -5,6 +5,7 @@ from sympy import Piecewise
 from sympy import piecewise_fold
 from sympy import Rel
 from sympy import Expr
+from sympy import Symbol
 
 
 class Dist(ABC):
@@ -51,7 +52,9 @@ class Dist(ABC):
         return self.prob_total(func_troz_simpl)
 
     @abstractmethod
-    def prob_total(self, func_dist_pru: Expr) -> Expr:
+    def prob_total(self,
+                   func_dist_pru: Expr,
+                   vars_pru: set[Symbol] = None) -> Expr:
         """Calcula la probabilidad total de una FD.
 
         Parameters
