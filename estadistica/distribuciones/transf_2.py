@@ -44,12 +44,23 @@ def dp_a_dist(func_dist: Expr,
               *variables: Symbol) -> dict:
     """Transforma la expresion FD a un diccionario.
 
+    Parameters
+    ----------
+    func_dist
+        Funcion de distribucion
+    *variables
+        Variables ordenadas
+
     Returns
     -------
     dict
         Distribucion en forma de diccionario
-    *variables
-        Variables
+
+    Note
+    ----
+    La distribucion se presenta de acuerdo al orden
+    de como se ingresan las *variables
+
     """
     dom = establecer_dominio(func_dist)
     vals = [dom[var] for var in [*variables]]

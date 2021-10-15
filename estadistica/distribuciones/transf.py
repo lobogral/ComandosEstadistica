@@ -38,10 +38,16 @@ def establecer_dominio(func_dist: Expr) -> dict:
 def dp_a_dist(func_dist: Expr) -> dict:
     """Transforma la expresion FD a un diccionario.
 
+    Parameters
+    ----------
+    func_dist
+        Funcion de distribucion
+
     Returns
     -------
     dict
         Distribucion en forma de diccionario
+
     """
     dom = establecer_dominio(func_dist)
     var, = dom.keys()
