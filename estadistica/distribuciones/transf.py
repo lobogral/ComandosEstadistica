@@ -1,4 +1,8 @@
-"""Ofrece funcionalidades de transformacion."""
+"""Ofrece funcionalidades de transformacion.
+
+Esta enfocado principalmente en
+distribuciones discretas
+"""
 from sympy import Piecewise
 from sympy import Symbol
 from sympy import Rel

@@ -4,7 +4,7 @@ from sympy import Range
 from sympy import Sum
 from sympy import Expr
 from estadistica.distribuciones.dist_conj import DistConj
-from estadistica.distribuciones.transf_2 import establecer_dominio
+from estadistica.distribuciones.transf_conj import establecer_dominio
 
 
 class DistConjDisc(DistConj):

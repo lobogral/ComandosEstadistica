@@ -1,4 +1,9 @@
-"""Ofrece funcionalidades de transformacion."""
+"""Ofrece funcionalidades de transformacion.
+
+Esta enfocado principalmente en
+distribuciones discretas conjuntas
+
+"""
 from itertools import product
 from sympy import Piecewise
 from sympy import Symbol
