@@ -19,22 +19,23 @@ class Esp():
         """
         self.dist.est_func_dist(func_dist)
 
-    def esperanza(self, func):
-        return self.dist.prob_total(func*self.dist.func_dist)
+    def esperanza(self, var_alea):
+        return self.dist.prob_total(var_alea*self.dist.func_dist)
 
-    def varianza(self, func):
-        fdp = self.dist.func_dist
-        return self.dist.prob_total(((func - self.esperanza(func))**2)*fdp)
+    def varianza(self, var_alea):
+        func_dist = self.dist.func_dist
+        return self.dist.prob_total(
+                   ((var_alea - self.esperanza(var_alea))**2)*func_dist)
 
-    def varianza_alter(self, func):
-        var, = func.atoms(Symbol)
-        return self.esperanza(var**2) - self.esperanza(func)**2
+    def varianza_alter(self, var_alea):
+        var, = var_alea.atoms(Symbol)
+        return self.esperanza(var**2) - self.esperanza(var_alea)**2
 
-    def desviacion(self, func):
-        return sqrt(self.varianza(func))
+    def desviacion(self, var_alea):
+        return sqrt(self.varianza(var_alea))
 
     def covarianza(self):
         variables = self.dist.func_dist.atoms(Symbol)
-        prod_var = prod(variables)
-        prod_esp = prod([self.esperanza(var) for var in variables])
-        return self.esperanza(prod_var)-prod_esp
+        prod_variables = prod(variables)
+        prod_esperanzas = prod([self.esperanza(var) for var in variables])
+        return self.esperanza(prod_variables)-prod_esperanzas
