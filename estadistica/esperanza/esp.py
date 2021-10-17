@@ -9,7 +9,7 @@ class Esp():
 
     dist: Dist = None
 
-    def establecer_fdp(self, func_dist: Expr) -> None:
+    def est_func_dist(self, func_dist: Expr) -> None:
         """Establece la FD.
 
         Parameters
