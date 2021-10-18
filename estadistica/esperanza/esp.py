@@ -40,6 +40,11 @@ class Esp():
         ----------
         var_alea
             Variable aleatoria
+
+        Returns
+        -------
+        Expr
+            Esperanza matematica
         """
         return self.dist.prob_total(var_alea*self.dist.func_dist)
 
@@ -50,6 +55,11 @@ class Esp():
         ----------
         var_alea
             Variable aleatoria
+
+        Returns
+        -------
+        Expr
+            Varianza
         """
         func_dist = self.dist.func_dist
         return self.dist.prob_total(
@@ -63,6 +73,11 @@ class Esp():
         var_alea
             Variable aleatoria
 
+        Returns
+        -------
+        Expr
+            Varianza
+
         Note
         ----
         Se debe anotar que el metodo solo funciona
@@ -71,23 +86,28 @@ class Esp():
         var, = var_alea.atoms(Symbol)
         return self.esperanza(var**2) - self.esperanza(var_alea)**2
 
-    def desviacion(self, var_alea):
+    def desviacion(self, var_alea: Expr) -> Expr:
         """Calcula la desviacion estandar.
 
         Parameters
         ----------
         var_alea
             Variable aleatoria
+
+        Returns
+        -------
+        Expr
+            Desviacion estandar
         """
         return sqrt(self.varianza(var_alea))
 
-    def covarianza(self):
+    def covarianza(self) -> Expr:
         """Calcula la covarianza.
 
-        Parameters
-        ----------
-        var_alea
-            Variable aleatoria
+        Returns
+        -------
+        Expr
+            Covarianza
         """
         variables = self.dist.func_dist.atoms(Symbol)
         prod_variables = prod(variables)
