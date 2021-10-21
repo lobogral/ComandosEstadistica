@@ -7,9 +7,9 @@ distribuciones discretas conjuntas
 from itertools import product
 from sympy import Piecewise
 from sympy import Symbol
+from sympy import Eq
 from sympy import Rel
 from sympy import solveset
-from sympy import Eq
 from sympy import Integers
 from sympy import EmptySet
 from sympy import Expr

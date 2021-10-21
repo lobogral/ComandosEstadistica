@@ -18,10 +18,10 @@ class DistConjDisc(DistConj):
         Para mas informacion revisar
         docstring de la clase abuela (Dist)
         """
-        if vars_pru is None:
-            vars_pru = func_dist_pru.atoms(Symbol)
         dom_pru = establecer_dominio(func_dist_pru)
         prob = func_dist_pru
+        if vars_pru is None:
+            vars_pru = func_dist_pru.atoms(Symbol)
         for var in vars_pru:
             if isinstance(dom_pru[var], Range):
                 inicio, final, _ = dom_pru[var].args
