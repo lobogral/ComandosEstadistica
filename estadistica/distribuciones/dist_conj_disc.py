@@ -15,7 +15,7 @@ class DistConjDisc(DistConj):
                        vars_pru: set[Symbol]) -> Expr:
         """Calcula la probabilidad total por variable de una FD.
 
-        Para mas informacion revisar
+        Para mas información revisar
         docstring de la clase padre (DistConj)
         """
         dom_pru = establecer_dominio(func_dist_pru)

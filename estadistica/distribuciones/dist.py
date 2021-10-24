@@ -6,17 +6,17 @@ from sympy import Expr
 
 
 class Dist():
-    """Ofrece funciones heredables para distribuciones.
+    """Ofrece funciones para distribuciones.
 
     Attributes
     ----------
     func_dist
-        Funcion de distribucion
+        Función de distribución
 
     Note
     ----
-    De ahora en adelante las palabras funcion de distribucion
-    seran simplificadas como FD
+    De ahora en adelante las palabras función de distribución
+    serán simplificadas como FD
     """
 
     func_dist: Expr = None
@@ -27,24 +27,24 @@ class Dist():
         Parameters
         ----------
         func_dist
-            Expresion de FD nueva
+            Expresión de FD nueva
         """
         self.func_dist = func_dist
 
-    def prob(self, relacion: Rel) -> Expr:
-        """Calcula la probabilidad sobre una relacion de la FD.
+    def prob(self, rel: Rel) -> Expr:
+        """Calcula la probabilidad sobre una relación de la FD.
 
         Parameters
         ----------
-        relacion
-            Relacion a la que se aplica el FD
+        rel
+            Relación a la que se aplica el FD
 
         Returns
         -------
         Expr
-            Expresion resultante sin Symbols
+            Expresión resultante sin Symbols
         """
-        func_troz = Piecewise((self.func_dist, relacion), (0, True))
+        func_troz = Piecewise((self.func_dist, rel), (0, True))
         func_troz_simpl = piecewise_fold(func_troz)
         return self.prob_total(func_troz_simpl)
 
@@ -60,5 +60,5 @@ class Dist():
         Returns
         -------
         Expr
-            Expresion resultante sin Symbols
+            Expresión resultante sin Symbols
         """

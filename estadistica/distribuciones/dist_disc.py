@@ -1,4 +1,4 @@
-"""Comandos para una distribucion discreta."""
+"""Comandos para una distribución discreta."""
 from sympy import Piecewise
 from sympy import Symbol
 from sympy import summation
@@ -15,7 +15,7 @@ class DistDisc(Dist):
                    func_dist_pru: Expr) -> Expr:
         """Calcula la probabilidad total de una FD.
 
-        Para mas informacion revisar
+        Para mas información revisar
         docstring de la clase padre (Dist)
         """
         dom_pru = establecer_dominio(func_dist_pru)
@@ -32,7 +32,7 @@ class DistDisc(Dist):
         Returns
         -------
         Piecewise
-            Funcion a trozos resultante
+            Función a trozos resultante
         """
         var, = self.func_dist.atoms(Symbol)
         dom = establecer_dominio(self.func_dist)

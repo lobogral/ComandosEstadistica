@@ -1,4 +1,4 @@
-"""Comandos para una distribucion continua."""
+"""Comandos para una distribución continua."""
 from sympy import Piecewise
 from sympy import oo
 from sympy import simplify
@@ -16,7 +16,7 @@ class DistCont(Dist):
                    func_dist_pru: Expr) -> Expr:
         """Calcula la probabilidad total de una FD.
 
-        Para mas informacion revisar
+        Para mas información revisar
         docstring de la clase padre (Dist)
         """
         var_pru, = func_dist_pru.atoms(Symbol)
@@ -28,7 +28,7 @@ class DistCont(Dist):
         Returns
         -------
         Piecewise
-            Funcion a trozos resultante
+            Función a trozos resultante
         """
         var, = self.func_dist.atoms(Symbol)
         integral = integrate(self.func_dist.subs(var, t), (t, -oo, var))

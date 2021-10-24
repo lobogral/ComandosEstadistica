@@ -16,7 +16,7 @@ class DistConjCont(DistConj):
                        vars_pru: set[Symbol]) -> Expr:
         """Calcula la probabilidad total por variable de una FD.
 
-        Para mas informacion revisar
+        Para mas información revisar
         docstring de la clase padre (DistConj)
         """
         lista = [(var_pru, -oo, oo) for var_pru in vars_pru]

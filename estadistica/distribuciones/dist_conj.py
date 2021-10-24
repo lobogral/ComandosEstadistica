@@ -10,7 +10,7 @@ from estadistica.distribuciones.dist import Dist
 
 
 class DistConj(Dist):
-    """Ofrece funciones heredables para distribuciones conjuntas."""
+    """Ofrece funciones para distribuciones conjuntas."""
 
     def prob_marginal(self, *vars_mar: Symbol) -> Expr:
         """Calcula la probabilidad marginal.
@@ -33,7 +33,7 @@ class DistConj(Dist):
         Parameters
         ----------
         area_dep
-            Area de dependencia
+            Área de dependencia
         eqs_indep
             Ecuaciones de independencia
         """
@@ -51,7 +51,7 @@ class DistConj(Dist):
                    func_dist_pru: Expr) -> Expr:
         """Calcula la probabilidad total de una FD.
 
-        Para mas informacion revisar
+        Para mas información revisar
         docstring de la clase padre (Dist)
         """
         func_vars = func_dist_pru.atoms(Symbol)
@@ -72,7 +72,7 @@ class DistConj(Dist):
         Returns
         -------
         Expr
-            Expresion resultante sin Symbols
+            Expresión resultante sin Symbols
 
         Note
         ----

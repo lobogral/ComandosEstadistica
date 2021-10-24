@@ -1,6 +1,6 @@
-"""Ofrece funcionalidades de transformacion.
+"""Ofrece funcionalidades de transformación.
 
-Esta enfocado principalmente en
+Está enfocado principalmente en
 distribuciones discretas conjuntas
 
 """
@@ -22,7 +22,7 @@ def establecer_dominio(func_dist: Expr) -> dict:
     Parameters
     ----------
     func_dist
-        Distribucion de probabilidad
+        Distribución de probabilidad
 
     Returns
     -------
@@ -47,23 +47,23 @@ def establecer_dominio(func_dist: Expr) -> dict:
 
 def dp_a_dist(func_dist: Expr,
               *variables: Symbol) -> dict:
-    """Transforma la expresion FD a un diccionario.
+    """Transforma la expresión FD a un diccionario.
 
     Parameters
     ----------
     func_dist
-        Funcion de distribucion
+        Función de distribución
     *variables
         Variables ordenadas
 
     Returns
     -------
     dict
-        Distribucion en forma de diccionario
+        Distribución en forma de diccionario
 
     Note
     ----
-    La distribucion se presenta de acuerdo al orden
+    La distribución se presenta de acuerdo al orden
     de como se ingresan las *variables
 
     """
@@ -75,19 +75,19 @@ def dp_a_dist(func_dist: Expr,
 
 def dist_a_dp(dist: dict,
               variables: list[Symbol]) -> Expr:
-    """Transforma un diccionario (dist) a una expresion (FD).
+    """Transforma un diccionario (dist) a una expresión (FD).
 
     Parameters
     ----------
     dist
-        Diccionario de distribucion de probabilidad
+        Diccionario de distribución de probabilidad
     variables
         Lista de variables
 
     Returns
     -------
     Expr
-        Distribucion en forma de expresion
+        Distribución en forma de expresión
     """
     def gen_eq(tupl):
         return And(*[Eq(k, v) for k, v in zip(tupl, variables)])
