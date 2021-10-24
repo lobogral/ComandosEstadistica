@@ -1,9 +1,9 @@
-"""Calcula medidas de posicion de una muestra."""
+"""Calcula medidas de posición de una muestra."""
 from typing import Union
 
 
 def media(muestra: list[Union[int, float]]) -> float:
-    """Calcula el promedio aritmetico de una muestra.
+    """Calcula el promedio aritmético de una muestra.
 
     Parameters
     ----------

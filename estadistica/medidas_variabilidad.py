@@ -5,7 +5,7 @@ from typing import Union
 def rango(muestra: list[Union[int, float]]) -> Union[float, int]:
     """Calcula el rango de valores en una muestra.
 
-    Parametros
+    Parameters
     ----------
     muestra
         Arreglo de datos
@@ -22,7 +22,7 @@ def rango(muestra: list[Union[int, float]]) -> Union[float, int]:
 def varianza(muestra: list[Union[int, float]]) -> float:
     """Calcula la varianza de una muestra.
 
-    Parametros
+    Parameters
     ----------
     muestra
         Arreglo de datos
@@ -40,9 +40,9 @@ def varianza(muestra: list[Union[int, float]]) -> float:
 
 
 def desviacion_estandar(muestra: list[Union[int, float]]) -> float:
-    """Calcula la desviacion estandar de una muestra.
+    """Calcula la desviación estándar de una muestra.
 
-    Parametros
+    Parameters
     ----------
     muestra
         Arreglo de datos
@@ -50,7 +50,7 @@ def desviacion_estandar(muestra: list[Union[int, float]]) -> float:
     Returns
     -------
     float
-        Desviacion
+        Desviación
 
     """
     return varianza(muestra)**(0.5)
