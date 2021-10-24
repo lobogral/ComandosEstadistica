@@ -12,8 +12,7 @@ class DistDisc(Dist):
     """Ofrece funciones para distribuciones discretas."""
 
     def prob_total(self,
-                   func_dist_pru: Expr,
-                   vars_pru: set[Symbol] = None) -> Expr:
+                   func_dist_pru: Expr) -> Expr:
         """Calcula la probabilidad total de una FD.
 
         Para mas informacion revisar

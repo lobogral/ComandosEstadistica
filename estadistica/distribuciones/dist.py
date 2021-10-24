@@ -1,14 +1,11 @@
 """Ofrece una clase para manejo de distribuciones."""
-from abc import ABC
-from abc import abstractmethod
 from sympy import Piecewise
 from sympy import piecewise_fold
 from sympy import Rel
 from sympy import Expr
-from sympy import Symbol
 
 
-class Dist(ABC):
+class Dist():
     """Ofrece funciones heredables para distribuciones.
 
     Attributes
@@ -51,18 +48,14 @@ class Dist(ABC):
         func_troz_simpl = piecewise_fold(func_troz)
         return self.prob_total(func_troz_simpl)
 
-    @abstractmethod
     def prob_total(self,
-                   func_dist_pru: Expr,
-                   vars_pru: set[Symbol] = None) -> Expr:
+                   func_dist_pru: Expr) -> Expr:
         """Calcula la probabilidad total de una FD.
 
         Parameters
         ----------
         func_dist_pru
             FD de prueba
-        vars_pru
-            Variables de prueba
 
         Returns
         -------

@@ -21,9 +21,9 @@ class DistConj(Dist):
             Variables marginales
         """
         vars_fdp = self.func_dist.atoms(Symbol)
-        vars_mar = vars_fdp - {*vars_mar}
-        prob = self.prob_total(self.func_dist, vars_mar)
-        return simplify(prob)
+        vars_no_mar = vars_fdp - {*vars_mar}
+        return simplify(self.prob_total_var(self.func_dist,
+                                            vars_no_mar))
 
     def prob_condicional(self,
                          area_dep: Expr,
@@ -46,3 +46,36 @@ class DistConj(Dist):
                 (func_cond_eval, area_dep),
                 (0, True)))
         return self.prob_total(func_cond_eval_area)
+
+    def prob_total(self,
+                   func_dist_pru: Expr) -> Expr:
+        """Calcula la probabilidad total de una FD.
+
+        Para mas informacion revisar
+        docstring de la clase padre (Dist)
+        """
+        func_vars = func_dist_pru.atoms(Symbol)
+        return self.prob_total_var(func_dist_pru, func_vars)
+
+    def prob_total_var(self,
+                       func_dist_pru: Expr,
+                       vars_pru: set[Symbol]) -> Expr:
+        """Calcula la probabilidad total por variable de una FD.
+
+        Parameters
+        ----------
+        func_dist_pru
+            FD de prueba
+        vars_pru
+            Variables de prueba
+
+        Returns
+        -------
+        Expr
+            Expresion resultante sin Symbols
+
+        Note
+        ----
+        Al utilizar la probabilidad sobre todas
+        las variables se calcula prob_total
+        """

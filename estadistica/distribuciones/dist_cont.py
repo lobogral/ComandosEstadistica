@@ -13,8 +13,7 @@ class DistCont(Dist):
     """Ofrece funciones para distribuciones continuas."""
 
     def prob_total(self,
-                   func_dist_pru: Expr,
-                   vars_pru: set[Symbol] = None) -> Expr:
+                   func_dist_pru: Expr) -> Expr:
         """Calcula la probabilidad total de una FD.
 
         Para mas informacion revisar

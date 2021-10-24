@@ -10,18 +10,16 @@ from estadistica.distribuciones.transf_conj import establecer_dominio
 class DistConjDisc(DistConj):
     """Ofrece funciones para distribuciones conjuntas discretas."""
 
-    def prob_total(self,
-                   func_dist_pru: Expr,
-                   vars_pru: set[Symbol] = None) -> Expr:
-        """Calcula la probabilidad total de una FD.
+    def prob_total_var(self,
+                       func_dist_pru: Expr,
+                       vars_pru: set[Symbol]) -> Expr:
+        """Calcula la probabilidad total por variable de una FD.
 
         Para mas informacion revisar
-        docstring de la clase abuela (Dist)
+        docstring de la clase padre (DistConj)
         """
         dom_pru = establecer_dominio(func_dist_pru)
         prob = func_dist_pru
-        if vars_pru is None:
-            vars_pru = func_dist_pru.atoms(Symbol)
         for var in vars_pru:
             if isinstance(dom_pru[var], Range):
                 inicio, final, _ = dom_pru[var].args
