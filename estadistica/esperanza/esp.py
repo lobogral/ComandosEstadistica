@@ -1,8 +1,8 @@
-"""Ofrece una clase para manejo de la esperanza matematica.
+"""Ofrece una clase para manejo de la esperanza matemática.
 
-Esto incluye tanto la defincion de la esperanza como
-sus derivados como la varianza, la desviacion estandar,
-y la covarianza
+Esto incluye tanto la definición de la esperanza como sus
+derivados, por ejemplo la varianza, la desviación estándar,
+y la covarianza.
 """
 from math import prod
 from math import sqrt
@@ -12,12 +12,12 @@ from estadistica.distribuciones.dist import Dist
 
 
 class Esp():
-    """Ofrece funciones heredables para esperanza matematica.
+    """Ofrece funciones para esperanza matemática.
 
     Attributes
     ----------
     dist
-        Funcion de distribucion
+        Función de distribución
 
     """
 
@@ -29,12 +29,12 @@ class Esp():
         Parameters
         ----------
         func_dist
-            Expresion de FD nueva
+            Expresión de FD nueva
         """
         self.dist.est_func_dist(func_dist)
 
     def esperanza(self, var_alea: Expr) -> Expr:
-        """Calcula la esperanza matematica.
+        """Calcula la esperanza matemática.
 
         Parameters
         ----------
@@ -44,7 +44,7 @@ class Esp():
         Returns
         -------
         Expr
-            Esperanza matematica
+            Esperanza matemática
         """
         return self.dist.prob_total(var_alea*self.dist.func_dist)
 
@@ -80,14 +80,14 @@ class Esp():
 
         Note
         ----
-        Se debe anotar que el metodo solo funciona
+        Se debe anotar que el método solo funciona
         para una variable
         """
         var, = var_alea.atoms(Symbol)
         return self.esperanza(var**2) - self.esperanza(var_alea)**2
 
     def desviacion(self, var_alea: Expr) -> Expr:
-        """Calcula la desviacion estandar.
+        """Calcula la desviación estándar.
 
         Parameters
         ----------
@@ -97,7 +97,7 @@ class Esp():
         Returns
         -------
         Expr
-            Desviacion estandar
+            Desviación estándar
         """
         return sqrt(self.varianza(var_alea))
 
