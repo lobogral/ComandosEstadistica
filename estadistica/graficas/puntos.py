@@ -1,11 +1,11 @@
-"""Realiza una grafica de puntos unidimensional."""
+"""Realiza una gráfica de puntos unidimensional."""
 from matplotlib import pyplot as plt
 
 
 def dibujar(diccionarios: list[dict],
             titulo_ventana: str,
             unidad_medida: str) -> None:
-    """Realiza lo descrito en el docstring del modulo.
+    """Realiza lo descrito en el docstring del módulo.
 
     Parameters
     ----------
@@ -17,7 +17,7 @@ def dibujar(diccionarios: list[dict],
             'muestra': muestra
         }
     titulo_ventana
-        Titulo de la ventana
+        Título de la ventana
     unidad_medida
         Unidad de la medida
 
@@ -45,14 +45,14 @@ def dibujar(diccionarios: list[dict],
 
 def __establecer_valores_y(muestras: list,
                            num_diccs: int) -> list[list]:
-    """Establece lista de valores 'y' de la grafica.
+    """Establece lista de valores 'y' de la gráfica.
 
     Parameters
     ----------
     muestras
         Lista de todos los valores de la muestras
     num_diccs
-        Numero de diccionarios
+        Número de diccionarios
 
     Returns
     -------
@@ -67,7 +67,7 @@ def __establecer_valores_y(muestras: list,
 
 
 def __establecer_limite_superior(muestras: list) -> int:
-    """Calcula el limite superior de la grafica.
+    """Calcula el límite superior de la gráfica.
 
     Parameters
     ----------
@@ -77,7 +77,7 @@ def __establecer_limite_superior(muestras: list) -> int:
     Returns
     -------
     int
-        Limite superior
+        Límite superior
 
     """
     return max([muestras.count(val) for val in muestras])

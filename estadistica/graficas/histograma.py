@@ -1,4 +1,4 @@
-"""Realiza una grafica de histograma."""
+"""Realiza una gráfica de histograma."""
 from matplotlib import pyplot as plt
 from redondeo.redondeo import redondear
 
@@ -6,7 +6,7 @@ from redondeo.redondeo import redondear
 def dibujar(diccionario: dict,
             titulo_ventana: str,
             unidad_medida: str) -> None:
-    """Realiza lo descrito en el docstring del modulo.
+    """Realiza lo descrito en el docstring del módulo.
 
     Parameters
     ----------
@@ -20,7 +20,7 @@ def dibujar(diccionario: dict,
             "num_div": num_div
         }
     titulo_ventana
-        Titulo de la ventana
+        Título de la ventana
     unidad_medida
         Unidad de la medida
 
