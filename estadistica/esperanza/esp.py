@@ -21,7 +21,7 @@ class Esp():
 
     """
 
-    dist: Dist = None
+    dist: Dist
 
     def est_func_dist(self, func_dist: Expr) -> None:
         """Establece la FD.
