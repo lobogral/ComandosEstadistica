@@ -14,7 +14,7 @@ def url_release(package: str) -> str:
 
 setup(
     name="estadistica",
-    version="0.2",
+    version="0.3",
     packages=find_packages(),
     install_requires=[
         'redondeo @ https://github.com/lobogral/redondeo'
