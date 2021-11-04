@@ -1,9 +1,11 @@
 # estadistica
-Comandos creados desde cero para uso en estadística.
+Comandos creados desde un punto de partida (librerías sympy y matplotlib) para uso en estadística.
 
-Este paquete está diseñado para algunos aspectos que no están bien definidos
-dentro de librerías como sympy, matplotlib, etc. Como las gráficas unidimensionales,
-o la probabilidad conjunta y lo que conlleva.
+Este paquete está diseñado para:
+
+1. Algunos aspectos que no están bien definidos dentro de las librerías como 
+gráficas unidimensionales, probabilidad conjunta y otros.
+3. Aspectos bien definidos de las librerías escritos usando los estándares PEP8.
 
 ## Documentación
 
