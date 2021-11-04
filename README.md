@@ -9,8 +9,8 @@ gráficas unidimensionales, probabilidad conjunta, etc.
 
 ## Documentación
 
-Por ahora la documentación que se puede ofrecer están en los códigos, se utiliza
-la convención numpy.
+Por ahora la documentación que se puede ofrecer están en los módulos, se utiliza
+la convención numpy en los docstrings.
 
 ## Instalación
 
