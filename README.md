@@ -3,9 +3,9 @@ Comandos creados desde un punto de partida (librerías sympy y matplotlib) para 
 
 Este paquete está diseñado para:
 
-1. Algunos aspectos que no están bien definidos dentro de las librerías como 
-gráficas unidimensionales, probabilidad conjunta y otros.
-3. Aspectos bien definidos de las librerías escritos usando los estándares PEP8.
+1. Utilizar comandos estadísticos que no están definidos en las librerías como 
+gráficas unidimensionales, probabilidad conjunta, etc.
+2. Redefinir aspectos bien definidos de las librerías usando los estándares PEP8.
 
 ## Documentación
 
