@@ -5,7 +5,7 @@ Este paquete está diseñado para:
 
 1. Utilizar comandos estadísticos que no están definidos en las librerías como 
 gráficas unidimensionales, probabilidad conjunta, etc.
-2. Redefinir aspectos bien definidos de las librerías usando los estándares PEP8.
+2. Redefinir comandos definidos de las librerías usando los estándares PEP8.
 
 ## Documentación
 
