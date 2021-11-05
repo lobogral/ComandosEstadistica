@@ -23,6 +23,10 @@ class Esp():
 
     dist: Dist
 
+    def __init__(self, dist: Dist):
+        """Inicializa la clase."""
+        self.dist = dist
+
     def est_func_dist(self, func_dist: Expr) -> None:
         """Establece la FD.
 

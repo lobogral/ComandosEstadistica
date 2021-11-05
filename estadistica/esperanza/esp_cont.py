@@ -8,4 +8,4 @@ class EspCont(Esp):
 
     def __init__(self):
         """Inicializa la clase."""
-        self.dist = DistConjCont()
+        super().__init__(DistConjCont())

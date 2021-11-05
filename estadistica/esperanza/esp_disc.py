@@ -8,4 +8,4 @@ class EspDisc(Esp):
 
     def __init__(self):
         """Inicializa la clase."""
-        self.dist = DistConjDisc()
+        super().__init__(DistConjDisc())
