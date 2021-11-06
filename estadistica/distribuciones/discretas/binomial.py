@@ -12,7 +12,7 @@ class Binomial(DistDisc):
                  var: Expr,
                  prob_exito: float,
                  num_vals: int) -> None:
-        """Constructor.
+        """Inicializa la clase.
 
         Establece valores concretos para que se pueda
         crear la distribución.

@@ -11,7 +11,7 @@ class Uniforme(DistDisc):
     def __init__(self,
                  num_vals: int,
                  inter_vals: Expr) -> None:
-        """Constructor.
+        """Inicializa la clase.
 
         Establece valores concretos para que se pueda
         crear la distribución.
