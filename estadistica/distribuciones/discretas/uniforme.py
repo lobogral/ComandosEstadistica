@@ -8,14 +8,13 @@ from sympy import Expr
 class Uniforme(DistDisc):
     """Ofrece funcionalidades para distribución uniforme."""
 
-    def est_vals_dist(self,
-                      num_vals: int,
-                      inter_vals: Expr) -> None:
-        """Establece valores para distribución.
+    def __init__(self,
+                 num_vals: int,
+                 inter_vals: Expr) -> None:
+        """Constructor.
 
         Establece valores concretos para que se pueda
-        crear la distribución y con ello establecer
-        dicha distribución.
+        crear la distribución.
 
         Parameters
         ----------

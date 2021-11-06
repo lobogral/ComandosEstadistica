@@ -8,15 +8,14 @@ from sympy import binomial as nC
 class Binomial(DistDisc):
     """Ofrece funcionalidades para distribución binomial."""
 
-    def est_vals_dist(self,
-                      var: Expr,
-                      prob_exito: float,
-                      num_vals: int) -> None:
-        """Establece valores para distribución.
+    def __init__(self,
+                 var: Expr,
+                 prob_exito: float,
+                 num_vals: int) -> None:
+        """Constructor.
 
         Establece valores concretos para que se pueda
-        crear la distribución y con ello establecer
-        dicha distribución.
+        crear la distribución.
 
         Parameters
         ----------
