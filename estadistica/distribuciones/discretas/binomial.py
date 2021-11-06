@@ -1,11 +1,12 @@
 """Ofrece una clase para manejo de la distribución binomial."""
 from estadistica.distribuciones.dist_disc import DistDisc
+from estadistica.distribuciones.dist_conc import DistConc
 from sympy import Piecewise
 from sympy import Expr
 from sympy import binomial as nC
 
 
-class Binomial(DistDisc):
+class Binomial(DistConc):
     """Ofrece funcionalidades para distribución binomial."""
 
     def __init__(self,
@@ -30,4 +31,5 @@ class Binomial(DistDisc):
         func_dist = Piecewise((
             nC(num_vals, var)*(prob_exito**var)*(prob_fracaso**(num_vals-var)),
             (var >= 0) & (var <= num_vals)))
-        self.est_func_dist(func_dist)
+        self.dist = DistDisc()
+        self.dist.est_func_dist(func_dist)

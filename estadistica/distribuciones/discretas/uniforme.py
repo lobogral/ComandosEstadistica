@@ -1,11 +1,12 @@
 """Ofrece una clase para manejo de la distribución uniforme."""
 from fractions import Fraction
+from estadistica.distribuciones.dist_conc import DistConc
 from estadistica.distribuciones.dist_disc import DistDisc
 from sympy import Piecewise
 from sympy import Expr
 
 
-class Uniforme(DistDisc):
+class Uniforme(DistConc):
     """Ofrece funcionalidades para distribución uniforme."""
 
     def __init__(self,
@@ -24,4 +25,5 @@ class Uniforme(DistDisc):
             Intervalo o conjunto de valores
         """
         func_dist = Piecewise((Fraction(1, num_vals), inter_vals))
-        self.est_func_dist(func_dist)
+        self.dist = DistDisc()
+        self.dist.est_func_dist(func_dist)
