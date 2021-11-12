@@ -28,7 +28,7 @@ class Hipergeom(DistConc):
         muestra
             Muestra del número de valores
         num_exi
-            Número de exitos
+            Número de exitos del número de valores
         """
         num_fra = num_vals - num_exi
         func_dist = Piecewise((
