@@ -5,7 +5,7 @@ from sympy import summation
 from sympy import Range
 from sympy import Expr
 from estadistica.distribuciones.dist import Dist
-from estadistica.distribuciones.transf import establecer_dominio
+from estadistica.transf.transf import establecer_dominio
 
 
 class DistDisc(Dist):
